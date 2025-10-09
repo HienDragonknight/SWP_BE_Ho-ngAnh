@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tin Tức - Khách Sạn</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/vendors/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/vendors/linericon/style.css">
+    <link rel="stylesheet" href="/vendors/magnefic-popup/magnific-popup.css">
+    <link rel="stylesheet" href="/vendors/owl-carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #F4E4BC;
+            --dark-navy: #1B2951;
+            --light-navy: #2C3E50;
+            --cream: #F8F6F0;
+            --charcoal: #2C2C2C;
+            --soft-gray: #E8E8E8;
+            --accent-blue: #4A90E2;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .news-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--dark-navy);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .news-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-gold);
+        }
+
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark-navy);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .news-card-heading {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .news-card-excerpt {
+            color: var(--charcoal);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--soft-gray);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-views {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-views i,
+        .news-date i {
+            color: var(--primary-gold);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #999;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .empty-state p {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .news-container {
+                padding: 20px 15px;
+            }
+
+            .news-title {
+                font-size: 2.5rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .news-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="common/header :: header"></div>
+    
+    <div class="news-container">
+        <!-- News Header -->
+        <div class="news-header">
+            <h1 class="news-title">Tin Tức Khách Sạn</h1>
+            <p class="news-subtitle">Cập nhật những thông tin mới nhất về dịch vụ, sự kiện và ưu đãi đặc biệt</p>
+        </div>
+
+        <!-- News Grid -->
+        <div th:if="${!newsList.isEmpty()}" class="news-grid">
+            <div th:each="news : ${newsList}" class="news-card">
+                <div th:if="${news.image}" class="news-image">
+                    <img th:src="${news.image}" th:alt="${news.title}">
+                </div>
+                <div th:unless="${news.image}" class="news-image" style="background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-newspaper fa-3x" style="color: white;"></i>
+                </div>
+                
+                <div class="news-content">
+                    <h3 class="news-card-title" th:text="${news.title}"></h3>
+                    <p th:if="${news.heading}" class="news-card-heading" th:text="${news.heading}"></p>
+                    <p class="news-card-excerpt" th:text="${#strings.abbreviate(news.content, 150)}"></p>
+                    
+                    <div class="news-meta">
+                        <div class="news-date">
+                            <i class="fas fa-calendar"></i>
+                            <span th:text="${#temporals.format(news.createdAt, 'dd/MM/yyyy')}"></span>
+                        </div>
+                        <div class="news-views">
+                            <i class="fas fa-eye"></i>
+                            <span th:text="${news.view != null ? news.view : 0}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div th:if="${newsList.isEmpty()}" class="empty-state">
+            <i class="fas fa-newspaper"></i>
+            <h3>Chưa có tin tức nào</h3>
+            <p>Hãy quay lại sau để xem những tin tức mới nhất</p>
+        </div>
+    </div>
+
+    <div th:replace="common/footer :: footer"></div>
+    
+    <script src="/vendors/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="/vendors/magnefic-popup/jquery.magnific-popup.min.js"></script>
+    <script src="/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="/vendors/superfish.min.js"></script>
+    <script src="/vendors/jquery.ajaxchimp.min.js"></script>
+    <script src="/vendors/mail-script.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
