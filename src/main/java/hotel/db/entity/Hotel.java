@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -41,6 +43,8 @@ public class Hotel  {
     @Column(name = "view_count")
     private Integer viewCount = 0;
 
-    @Column(name = "services")
-    private String services;
+
+    // Mối quan hệ 1-nhiều với Service
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Service> services;
 }

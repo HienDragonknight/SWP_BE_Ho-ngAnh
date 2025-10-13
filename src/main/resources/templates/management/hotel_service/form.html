@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add/Edit Service</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body class="container mt-4">
+
+<h2 th:text="${service.serviceId == null ? 'Add Service' : 'Edit Service'}"></h2>
+
+<form th:action="@{'/management/hotel/' + ${hotelId} + '/services/save'}" th:object="${service}" method="post">
+    <div class="mb-3">
+        <label>Name:</label>
+        <input type="text" th:field="*{serviceName}" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Description:</label>
+        <textarea th:field="*{serviceDescription}" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label>Price:</label>
+        <input type="number" th:field="*{price}" class="form-control" step="0.01" />
+    </div>
+
+    <button class="btn btn-success" type="submit">Save</button>
+    <a th:href="@{'/management/hotel/' + ${hotelId} + '/services'}" class="btn btn-secondary">Cancel</a>
+</form>
+
+</body>
+</html>
